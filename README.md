@@ -1,4 +1,6 @@
-# MyFirstAngularProject
+# Angular project - The Complete Guide (2023 Edition) ([udemy](https://www.udemy.com))
+
+Project of the course found here: https://www.udemy.com/course/the-complete-guide-to-angular-2/
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.0.
 
