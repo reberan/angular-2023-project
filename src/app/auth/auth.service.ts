@@ -4,6 +4,7 @@ import { BehaviorSubject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from './user.model';
 import { Router } from '@angular/router';
+import { environment } from 'src/environment/environment';
 
 export interface AuthResponseData {
   kind: string;
@@ -18,7 +19,7 @@ export interface AuthResponseData {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiKey: string = 'AIzaSyBZuMGAlSPOF3fICmwEfMLh3bOwBgKqaWM';
+  private apiKey: string = environment.apiKey;
   private signUpEndPoint: string =
     'https://identitytoolkit.googleapis.com/v1/accounts:signUp';
   private loginEndPoint: string =
