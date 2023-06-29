@@ -1,12 +1,12 @@
 import { Subject } from 'rxjs';
-//import { EventEmitter } from '@angular/core';
 import { Recipe } from './recipe.model';
-import { Ingredient } from '../shared/ingredient.model';
 
 export class RecipeService {
   //recipeSelected = new EventEmitter<Recipe>();
   recipesChanged = new Subject<Recipe[]>();
+  private recipes: Recipe[] = [];
 
+  /*
   private recipes: Recipe[] = [
     new Recipe(
       'A Test Recipe',
@@ -54,6 +54,12 @@ export class RecipeService {
       ]
     ),
   ];
+*/
+
+  setRecipes(recipes: Recipe[]): void {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
   getRecipes(): Recipe[] {
     // return a copy of recipes without direct access
