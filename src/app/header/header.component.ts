@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import AppState from '../store/app.state';
 import AuthState from '../auth/store/auth.state';
 import * as AuthActions from '../auth/store/auth.actions';
-import { AuthService } from '../auth/auth.service';
+
 import { DataStorageService } from '../shared/data-storage.service';
 import { User } from '../auth/user.model';
 
@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private dataStorageService: DataStorageService,
-    private authService: AuthService,
     private store: Store<AppState>
   ) {}
 
@@ -45,6 +44,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
-    this.authService.logout();
+    this.store.dispatch(new AuthActions.Logout());
   }
 }

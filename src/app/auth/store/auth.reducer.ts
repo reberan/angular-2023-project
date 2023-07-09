@@ -5,6 +5,8 @@ import { User } from '../user.model';
 const initialState: AuthState = {
   user: null,
   isLoggedIn: false,
+  authError: null,
+  isLoading: false,
 };
 
 export function authReducer(
@@ -20,13 +22,48 @@ export function authReducer(
         action.payload.token,
         action.payload.expirationDate
       );
-      updatedState.user = user;
+      updatedState.authError = null;
+      updatedState.isLoading = false;
       updatedState.isLoggedIn = true;
+      updatedState.user = user;
       return updatedState;
 
     case AuthActions.LOGOUT:
-      updatedState.user = null;
+      updatedState.authError = null;
+      updatedState.isLoading = false;
       updatedState.isLoggedIn = false;
+      updatedState.user = null;
+      return updatedState;
+
+    case AuthActions.LOGIN_FAIL:
+      updatedState.authError = action.payload;
+      updatedState.isLoading = false;
+      updatedState.isLoggedIn = false;
+      return updatedState;
+
+    case AuthActions.LOGIN_START:
+      updatedState.authError = null;
+      updatedState.isLoading = true;
+      updatedState.isLoggedIn = false;
+      return updatedState;
+
+    case AuthActions.CLEAR_ERROR:
+      updatedState.authError = null;
+      return updatedState;
+
+    case AuthActions.SIGNUP_START:
+      updatedState.authError = null;
+      updatedState.isLoading = true;
+      updatedState.isLoggedIn = false;
+      return updatedState;
+
+    case AuthActions.AUTO_LOGIN:
+      return updatedState;
+
+    case AuthActions.AUTO_LOGOUT:
+      return updatedState;
+
+    case AuthActions.SIGNUP:
       return updatedState;
 
     default:
