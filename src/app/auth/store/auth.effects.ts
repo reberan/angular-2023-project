@@ -30,7 +30,13 @@ const handleAuthentication = (
   const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
   const user = new User(email, userId, token, expirationDate);
   localStorage.setItem('userData', JSON.stringify(user));
-  return new AuthActions.Login({ email, userId, token, expirationDate });
+  return new AuthActions.Login({
+    email,
+    userId,
+    token,
+    expirationDate,
+    redirect: true,
+  });
 };
 
 const handleError = (errorResponse: any) => {
@@ -133,6 +139,7 @@ export class AuthEffects {
             userId: loadedUser.id,
             token: loadedUser.token,
             expirationDate: new Date(userData._tokenExpirationDate),
+            redirect: false,
           });
         }
         return { type: 'NO_ACTION' };
@@ -176,8 +183,10 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActions.LOGIN),
-        tap(() => {
-          this.router.navigate(['/']);
+        tap((loginAction: AuthActions.Login) => {
+          if (loginAction.payload.redirect) {
+            this.router.navigate(['/']);
+          }
         })
       ),
     { dispatch: false }

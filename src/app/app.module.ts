@@ -18,6 +18,7 @@ import { AuthModule } from './auth/auth.module';
 
 import { appReducer } from './store/app.reducer';
 import { AuthEffects } from './auth/store/auth.effects';
+import { RecipesEffects } from './recipes//store/recipes.effects';
 import { environment } from 'src/environment/environment';
 
 @NgModule({
@@ -32,7 +33,7 @@ import { environment } from 'src/environment/environment';
     BrowserModule,
     HttpClientModule,
     StoreModule.forRoot(appReducer),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, RecipesEffects]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot(),
   ],
