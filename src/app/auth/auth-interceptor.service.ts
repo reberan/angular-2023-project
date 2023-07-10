@@ -19,19 +19,13 @@ export class AuthInterceptorService implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler) {
     return this.store.select('auth').pipe(
       take(1),
-      map((authState: AuthState) => {
-        return authState.user;
-      }),
+      map((authState: AuthState) => authState.user),
       exhaustMap((user: User) => {
-        console.log(
-          '🚀 ~ file: auth-interceptor.service.ts:26 ~ AuthInterceptorService ~ exhaustMap ~ user:',
-          user
-        );
         if (!user) {
           return next.handle(request);
         }
         const modifiedRequest = request.clone({
-          params: new HttpParams().set('auth', user.token),
+          params: new HttpParams().set('auth', user._token),
         });
         return next.handle(modifiedRequest);
       })
