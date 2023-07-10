@@ -61,24 +61,26 @@ export class AuthEffects {
   private loginEndPoint: string =
     'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword';
 
-  // FIX THIS
   authSignup = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AuthActions.SIGNUP_START),
-      switchMap((signupAction: AuthActions.SignUp) => {
-        const payload = {
-          email: signupAction.payload.email,
-          password: signupAction.payload.password,
-          returnSecureToken: true,
-        };
-        const url = this.signUpEndPoint + '?key=' + this.apiKey;
-        this.http.post<AuthResponseData>(url, payload);
-      }).pipe(
+    this.actions$
+      .pipe(
+        ofType(AuthActions.SIGNUP_START),
+        switchMap((signupAction: AuthActions.SignUp) => {
+          const payload = {
+            email: signupAction.payload.email,
+            password: signupAction.payload.password,
+            returnSecureToken: true,
+          };
+          const url = this.signUpEndPoint + '?key=' + this.apiKey;
+          return this.http.post<AuthResponseData>(url, payload);
+        })
+      )
+      .pipe(
         tap((responseData) => {
           this.authService.setLogoutTimer(+responseData.expiresIn * 1000);
         }),
         map((responseData) => {
-          handleAuthentication(
+          return handleAuthentication(
             responseData.email,
             responseData.localId,
             responseData.idToken,
@@ -86,7 +88,6 @@ export class AuthEffects {
           );
         })
       )
-    )
   );
 
   authLogout = createEffect(
@@ -139,19 +140,21 @@ export class AuthEffects {
     )
   );
 
-  // FIX THIS
   authLogin = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AuthActions.LOGIN_START),
-      switchMap((authData: AuthActions.LoginStart) => {
-        const payload = {
-          email: authData.payload.email,
-          password: authData.payload.password,
-          returnSecureToken: true,
-        };
-        const url = this.loginEndPoint + '?key=' + this.apiKey;
-        return this.http.post<AuthResponseData>(url, payload);
-      }).pipe(
+    this.actions$
+      .pipe(
+        ofType(AuthActions.LOGIN_START),
+        switchMap((authData: AuthActions.LoginStart) => {
+          const payload = {
+            email: authData.payload.email,
+            password: authData.payload.password,
+            returnSecureToken: true,
+          };
+          const url = this.loginEndPoint + '?key=' + this.apiKey;
+          return this.http.post<AuthResponseData>(url, payload);
+        })
+      )
+      .pipe(
         tap((responseData) => {
           this.authService.setLogoutTimer(+responseData.expiresIn * 1000);
         }),
@@ -167,18 +170,17 @@ export class AuthEffects {
           return handleError(errorResponse);
         })
       )
-    )
   );
 
-  // FIX THIS
-  authRedirect = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AuthActions.LOGIN),
-      tap(() => {
-        this.router.navigate(['/']);
-      }),
-      { dispatch: false }
-    )
+  authRedirect = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.LOGIN),
+        tap(() => {
+          this.router.navigate(['/']);
+        })
+      ),
+    { dispatch: false }
   );
 
   constructor(
