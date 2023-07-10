@@ -72,13 +72,13 @@ export class AuthEffects {
           returnSecureToken: true,
         };
         const url = this.signUpEndPoint + '?key=' + this.apiKey;
-        return this.http.post<AuthResponseData>(url, payload);
+        this.http.post<AuthResponseData>(url, payload);
       }).pipe(
         tap((responseData) => {
           this.authService.setLogoutTimer(+responseData.expiresIn * 1000);
         }),
         map((responseData) => {
-          return handleAuthentication(
+          handleAuthentication(
             responseData.email,
             responseData.localId,
             responseData.idToken,
