@@ -39,23 +39,19 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       this.initForm();
     });
 
-    this.route.params
-      .pipe(
-        map((param: Params) => +param['id']),
-        switchMap((id: number) => {
-          this.id = id;
-          this.editMode = id !== null;
-          return this.store.select('recipes');
-        }),
-        map((recipesState: RecipesState) => {
-          return recipesState.recipes.find(
-            (_: Recipe, index: number) => index === this.id
-          );
-        })
-      )
-      .subscribe((recipe: Recipe) => {
-        //this.recipe = recipe;
-      });
+    this.route.params.pipe(
+      map((param: Params) => +param['id']),
+      switchMap((id: number) => {
+        this.id = id;
+        this.editMode = !!id;
+        return this.store.select('recipes');
+      }),
+      map((recipesState: RecipesState) => {
+        return recipesState.recipes.find(
+          (_: Recipe, index: number) => index === this.id
+        );
+      })
+    );
   }
 
   ngOnDestroy(): void {
