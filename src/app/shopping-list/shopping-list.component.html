@@ -3,16 +3,17 @@
     <app-shopping-edit></app-shopping-edit>
     <hr />
     <ul class="list-group">
-      <a
-        class="list-group-item"
-        style="cursor: pointer"
+      <li
+        class="list-item-style-none"
         *ngFor="
           let ingredient of (shoppingList | async).ingredients;
           let i = index
         "
-        (click)="onEditItem(i)"
-        >{{ ingredient.name }} ({{ ingredient.amount }})</a
       >
+        <a class="list-group-item cursor-pointer" (click)="onEditItem(i)"
+          >{{ ingredient.name }} ({{ ingredient.amount }})</a
+        >
+      </li>
     </ul>
   </div>
 </div>

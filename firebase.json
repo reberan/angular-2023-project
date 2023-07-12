@@ -1,0 +1,13 @@
+{
+  "hosting": {
+    "public": "dist/ng-2023-recipes",
+    "site": "ng-2023-project",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

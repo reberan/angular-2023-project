@@ -19,7 +19,7 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.content span')?.textContent).toContain(
-      'my-first-angular-project app is running!'
+      'ng-recipes-manager-2023 app is running!'
     );
   });
 });

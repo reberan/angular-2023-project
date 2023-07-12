@@ -1,7 +1,12 @@
 <div class="row">
   <div class="col-xs-12 col-md-6 col-md-offset-3">
-    <div *ngIf="isError" class="alert alert-danger">{{ error }}</div>
-    <div *ngIf="isLoading" style="text-align: center">
+    <div *ngIf="isError" class="alert alert-danger">
+      {{ error }}
+      <button type="button" class="btn btn-danger" (click)="onHandleError()">
+        X
+      </button>
+    </div>
+    <div *ngIf="isLoading" class="text-center">
       <app-loading-spinner></app-loading-spinner>
     </div>
     <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">

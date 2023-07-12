@@ -15,7 +15,7 @@
           </button>
         </div>
       </div>
-      <div class="row">
+      <div class="row mt-4">
         <div class="col-xs-12">
           <div class="form-group">
             <label for="name">Name</label>
@@ -44,10 +44,14 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <img [src]="imagePath.value" class="img-responsive" />
+          <img
+            [src]="imagePath.value"
+            class="img-responsive"
+            [alt]="imagePath.value"
+          />
         </div>
       </div>
-      <div class="row">
+      <div class="row mt-2">
         <div class="col-xs-12">
           <div class="form-group">
             <label for="description">Description</label>
@@ -61,13 +65,12 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row mt-2">
         <div class="col-xs-12" formArrayName="ingredients">
           <div
             class="row"
             *ngFor="let ingredientCtrl of recipeControls; let i = index"
             [formGroupName]="i"
-            style="margin-top: 10px"
           >
             <div class="col-xs-8">
               <input type="text" class="form-control" formControlName="name" />

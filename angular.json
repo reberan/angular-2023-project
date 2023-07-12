@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "my-first-angular-project": {
+    "ng-recipes-manager-2023": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/my-first-angular-project",
+            "outputPath": "dist/ng-recipes-manager-2023",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -56,10 +56,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "my-first-angular-project:build:production"
+              "browserTarget": "ng-recipes-manager-2023:build:production"
             },
             "development": {
-              "browserTarget": "my-first-angular-project:build:development"
+              "browserTarget": "ng-recipes-manager-2023:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -67,7 +67,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "my-first-angular-project:build"
+            "browserTarget": "ng-recipes-manager-2023:build"
           }
         },
         "test": {
